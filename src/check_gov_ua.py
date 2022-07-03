@@ -8,7 +8,7 @@ class RecaptchaError(Exception):
         super().__init__(f'Cannot get recaptcha token from a given url: {url}')
         self.url = url
 
-class CheckGovUaApi:
+class CheckGovUa:
     """Wrapper for state statement check service (https://check.gov.ua)
     Provide functionality:
         - get recaptcha token (allows to perform a single request)
@@ -22,7 +22,7 @@ class CheckGovUaApi:
         self.driver = webdriver_instance
 
     def get_recaptcha_token(self):
-        self.driver.get(CheckGovUaApi.CHECK_GOV_UA_URL)
+        self.driver.get(CheckGovUa.CHECK_GOV_UA_URL)
         for i in range(10):
             recaptchaToken = self.driver.execute_script('return window.conf.recaptchaToken')
             if recaptchaToken is not None:
@@ -57,5 +57,5 @@ class CheckGovUaApi:
                 "adblockState": False
             }
         }
-        response = requests.post(CheckGovUaApi.CHECK_GOV_UA_HANDLER_URL, headers=headers, json=data)
+        response = requests.post(CheckGovUa.CHECK_GOV_UA_HANDLER_URL, headers=headers, json=data)
         return response.json()["link"]
