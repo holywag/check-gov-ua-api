@@ -5,5 +5,5 @@ setup(
     version='1.0',
     package_dir={'': 'src'},
     py_modules=['check_gov_ua'],
-    requires=['requests'],
+    install_requires=['requests'],
 )
